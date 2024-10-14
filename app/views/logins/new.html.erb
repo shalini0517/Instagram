@@ -1,0 +1,50 @@
+
+<% if @user.nil? %>
+  <% flash.each do |type ,msg| %>
+      <div>
+        <%= msg %>
+      </div>
+  <% end %>
+<% else @user.password != params[:password] %>
+    <% flash.each do |type ,msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
+<% end %>
+
+
+<h1> Login</h1>
+<%= form_with path:profile_path , data: { turbo: false } do |form| %>
+  <br>
+  <div>
+    <%= form.label :Username, "Username:" %>
+    <%= form.text_field :username %>
+  </div>
+  <br>
+  <div>
+    <%= form.label :Password, "Password:" %>
+    <%= form.password_field :password%>
+  </div>
+  <br>
+  <br>
+  <div>
+    <%= button_to 'Login',profile_path(user: @user) %>
+  </div>
+  <br>
+  <br>
+  <%= link_to "Signup" , new_user_path %>
+
+<% end %>
+<br>
+<br>
+<%= link_to 'Back', root_path %>
+
+
+
+
+
+
+
+
+

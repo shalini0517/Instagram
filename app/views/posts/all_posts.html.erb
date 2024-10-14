@@ -1,0 +1,16 @@
+ <p><b>Logged in as: <%= @current_user.name %> </b></p>
+<p>All Posts</p>
+<% @post.each do |post| %>
+    <%= image_tag post.post_feed, size: "50" %>
+    <br>
+    <%= post.Description %>
+    <br>
+    <span>
+      Likes:<%= post.likes.count %>
+      Comments: <%= link_to post.comments.count,comments_path(token:@token,user:post.id) %>
+    </span>
+    <br>
+    <br>
+<% end %>
+
+<%= link_to 'Back', profile_path(token:@token) %>

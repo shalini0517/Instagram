@@ -1,0 +1,56 @@
+<%if @user.account_type=="Private" %>
+  <%= image_tag @user.profile_picture, size: "100"%>
+  <br>
+  <br>
+  <%= @user.username %>
+  <br>
+  <br>
+  <span>
+    Followers: <%= @user.followers.count %>
+    Following: <%= @user.followees.count %>
+  </span>
+  <br>
+  <br>
+  <mark>This Account is Private!! </mark>
+  <br>
+  <br>
+  <%= link_to 'Back', search_path(token:@token) %>
+<%else %>
+  <%= image_tag @user.profile_picture, size: "100"%>
+  <br>
+  <%= @user.username %>
+  <br>
+  <br>
+  <span>
+    <%= link_to "Followers:#{@user.followers.count}",user_followers_path(token:@token,user:@user) %>
+    <%= link_to "Following:#{@user.followees.count}",user_following_path(token:@token,user:@user) %>
+  </span>
+  <br>
+  <br>
+  <% @posts.each do |f| %>
+      <%= image_tag f.post_feed, size: "50" %>
+      <br>
+      <%= f.Description %>
+      <br>
+      <span>
+        <span>
+          <% like=Like.find_by(user_id:@current_user.id,post_id:f.id) %>
+          <% if like.present? %>
+            <%= link_to "unlike:#{f.likes.count}" , likes_path(token:@token,post_id:f.id,user_id:@user.id)%>
+          <% else %>
+            <%= link_to "like:#{f.likes.count}" , likes_path(token:@token,post_id:f.id,user_id:@user.id) %>
+          <%end%>
+        </span>
+      <%= link_to "Comments:#{f.comments.count}" , comments_path(token:@token,user:f.id)%>
+    </span>
+      <br>
+      <br>
+  <% end %>
+  <%= link_to 'Back', searches_user_path(token:@token) %>
+<%end%>
+
+
+
+
+
+

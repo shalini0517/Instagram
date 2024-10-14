@@ -1,0 +1,38 @@
+<p><b>Logged in as: <%= @current_user.name %> </b></p>
+<html>
+<style type="text/css">
+  td, th {
+  border: 1px solid black;
+  text-align: left;
+  padding: 8px;
+}
+</style>
+<p><u>Followers</u></p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Username</th>
+    <th>Profile photo</th>
+  </tr>
+  <% @followers.each do |f| %>
+    <tr>
+      <td>
+        <%= link_to f.name ,show_profile_path(token:@token,user: f.id)%>
+      <td>
+        <%= f.username %>
+      </td>
+      <td>
+        <%= image_tag f.profile_picture, size: "50" %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<br>
+<br>
+
+<%= link_to 'Back', profile_path(token:@token) %>
+</html>
+
+
+
+

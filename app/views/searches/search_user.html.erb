@@ -1,0 +1,48 @@
+<p><b>Logged in as: <%= @current_user.name %> </b></p>
+<%= link_to 'Back', profile_path(token:@token) %>
+
+<%= form_tag searches_user_path, method: :get do %>
+  <%= hidden_field_tag 'token', @token %>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag 'Search'%>
+<% end %>
+<br>
+<br>
+
+<style type="text/css">
+  td, th {
+  border: 1px solid black;
+  text-align: center;
+  padding: 8px;
+}
+</style>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Username</th>
+    <th>Profile photo</th>
+    <th> Follow Status</th>
+  </tr>
+  <% @users.each do |user| %>
+      <tr>
+        <td>
+          <%= link_to user.name ,show_profile_path(token:@token,user: user)%>
+        <td>
+          <%= user.username %>
+        </td>
+        <td>
+          <%= image_tag user.profile_picture, size: "50" %>
+        </td>
+        <td>
+        <%if @current_user.followees.ids.include?(user.id) %>
+            <%= link_to 'unfollow', unfollow_path(token: @token, user:user)%>
+        <%else %>
+            <%= link_to 'Follow', follow_path(token: @token, user:user)%>
+        <%end%>
+        </td>
+      </tr>
+  <% end %>
+
+
+</table>

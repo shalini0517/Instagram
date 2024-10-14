@@ -1,0 +1,86 @@
+<% if params[:name].nil? %>
+  <% flash.each do |type ,msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <%end%>
+<%else%>
+  <% flash.each do |type ,msg| %>
+    <div>
+      <%= msg %>
+    </div>
+    <%end%>
+<% end %>
+
+
+
+<h1>Create Your Account!!</h1>
+<%= form_with model: @user, data: { turbo: false } do |form| %>
+
+  <% if @user.errors.any? %>
+    <% @user.errors.full_messages.each do |message| %>
+       <li class="error"> <%= message %> </li>
+    <% end %>
+    <br>
+  <% end %>
+  <br>
+  <div>
+    <%= form.label :Name, "Name:" %>
+    <%= form.text_field :name %>
+  </div>
+  <br>
+  <div>
+    <%= form.label :Email, "Email:" %>
+    <%= form.email_field :email %>
+  </div>
+  <br>
+  <div>
+    <%= form.label :Phone_Number, "Phone Number:" %>
+    <%= form.telephone_field :phone_number %>
+  </div>
+  <br>
+  <div>
+    <%= form.label :Username, "Username:" %>
+    <%= form.text_field :username %>
+  </div>
+  <br>
+  <div>
+    <%= form.label :Password, "Password:" %>
+    <%= form.password_field :password%>
+  </div>
+  <br>
+  <div>
+    <%= form.label :Password_Confirmation, "Password_Confirmation:" %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+  <br>
+  <p>Select your Account Type:</p>
+  <div>
+    <%= form.radio_button :account_type,"Public" %>
+    <%= form.label :Public %>
+  </div>
+  <div>
+    <%= form.radio_button :account_type,"Private"%>
+    <%= form.label :Private %>
+  </div>
+  <br>
+  <div>
+    <%= form.label :Profile_Image, "Profile_Image:" %>
+    <br>
+    <br>
+    <%= form.file_field :profile_picture %>
+  </div>
+  <br>
+  <br>
+  <div>
+    <%= form.submit "Submit" %>
+  </div>
+  <br>
+  <br>
+
+  <%= link_to "Login" ,login_path%>
+
+<% end %>
+<br>
+<br>
+<%= link_to 'Back', root_path %>

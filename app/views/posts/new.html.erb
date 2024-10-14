@@ -1,0 +1,35 @@
+ <p><b>Logged in as: <%= @current_user.name %> </b></p>
+<h1>Upload a Post</h1>
+<%= form_with url:posts_path(token: @token) do |form| %>
+  <br>
+  <div>
+    <%= form.label :Description, "Description:" %>
+    <br>
+    <%= form.text_area :Description %>
+  </div>
+
+  <br>
+
+  <div>
+    <%= form.label :post_feed, "Upload a Post:" %>
+    <br>
+    <br>
+    <%= form.file_field :post_feed %>
+  </div>
+  <br>
+  <br>
+  <div>
+    <%= form.submit "Post"  %>
+  </div>
+  <br>
+  <br>
+
+<% end %>
+<br>
+<br>
+<%= link_to 'Back', profile_path(token:@token) %>
+
+
+
+
+
