@@ -6,12 +6,10 @@ class ApplicationController < ActionController::Base
 
   private
   def expiration
-    byebug
     if params[:controller]=="admin/dashboard" and params[:action]=="index"
       byebug
       redirect_to admin_root_path
     else
-      byebug
       begin
         @token = params[:token]
         user_id = JwtToken.jwt_decode(params[:token])['id']
